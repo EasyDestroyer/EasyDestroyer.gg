@@ -1,0 +1,39 @@
+-- Don't skid!
+
+function notify(text, time)
+	local Notify = Instance.new("ScreenGui")
+	local Notification = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local TextLabel = Instance.new("TextLabel")
+
+	Notify.Name = "Notify"
+	Notify.Parent = game.CoreGui
+	Notify.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	Notification.Name = "Notification"
+	Notification.Parent = Notify
+	Notification.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	Notification.BackgroundTransparency = 0.700
+	Notification.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Notification.BorderSizePixel = 0
+	Notification.Position = UDim2.new(0.74495846, 0, 0.881856561, 0)
+	Notification.Size = UDim2.new(0, 194, 0, 46)
+
+	UICorner.Parent = Notification
+
+	TextLabel.Parent = Notification
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.BorderSizePixel = 0
+	TextLabel.Position = UDim2.new(-0.00242252951, 0, -0.00930255372, 0)
+	TextLabel.Size = UDim2.new(0, 194, 0, 46)
+	TextLabel.Font = Enum.Font.SourceSansBold
+	TextLabel.Text = text
+	TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.TextSize = 14.000
+	
+	wait(time)
+	
+	Notify:Destroy()
+end
