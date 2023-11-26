@@ -1,6 +1,6 @@
--- Don't skid!
+local Notification = {}
 
-function Notification(text, time)
+function Notification:notify(text, time)
 	local Notify = Instance.new("ScreenGui")
 	local Notification = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
