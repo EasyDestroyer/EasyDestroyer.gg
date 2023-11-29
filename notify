@@ -1,13 +1,13 @@
 local Notification = {}
 
-function Notification:notify(text, time)
+function NotifyUser(text, time)
 	local Notify = Instance.new("ScreenGui")
 	local Notification = Instance.new("Frame")
 	local UICorner = Instance.new("UICorner")
 	local TextLabel = Instance.new("TextLabel")
 
 	Notify.Name = "Notify"
-	Notify.Parent = game.CoreGui
+	Notify.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	Notify.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	Notification.Name = "Notification"
