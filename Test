@@ -1,0 +1,113 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local yes = Players.LocalPlayer.Name
+local ChatTag = {}
+ChatTag[yes] =
+	{
+        TagText = "EasyDestroyer.gg USER",
+        TagColor = Color3.new(0, 0, 0),
+    }
+
+
+
+    local oldchanneltab
+    local oldchannelfunc
+    local oldchanneltabs = {}
+
+--// Chat Listener
+for i, v in pairs(getconnections(ReplicatedStorage.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)) do
+	if
+		v.Function
+		and #debug.getupvalues(v.Function) > 0
+		and type(debug.getupvalues(v.Function)[1]) == "table"
+		and getmetatable(debug.getupvalues(v.Function)[1])
+		and getmetatable(debug.getupvalues(v.Function)[1]).GetChannel
+	then
+		oldchanneltab = getmetatable(debug.getupvalues(v.Function)[1])
+		oldchannelfunc = getmetatable(debug.getupvalues(v.Function)[1]).GetChannel
+		getmetatable(debug.getupvalues(v.Function)[1]).GetChannel = function(Self, Name)
+			local tab = oldchannelfunc(Self, Name)
+			if tab and tab.AddMessageToChannel then
+				local addmessage = tab.AddMessageToChannel
+				if oldchanneltabs[tab] == nil then
+					oldchanneltabs[tab] = tab.AddMessageToChannel
+				end
+				tab.AddMessageToChannel = function(Self2, MessageData)
+					if MessageData.FromSpeaker and Players[MessageData.FromSpeaker] then
+						if ChatTag[Players[MessageData.FromSpeaker].Name] then
+							MessageData.ExtraData = {
+								NameColor = Players[MessageData.FromSpeaker].Team == nil and Color3.new(135,206,235)
+									or Players[MessageData.FromSpeaker].TeamColor.Color,
+								Tags = {
+									table.unpack(MessageData.ExtraData.Tags),
+									{
+										TagColor = ChatTag[Players[MessageData.FromSpeaker].Name].TagColor,
+										TagText = ChatTag[Players[MessageData.FromSpeaker].Name].TagText,
+									},
+								},
+							}
+						end
+					end
+					return addmessage(Self2, MessageData)
+				end
+			end
+			return tab
+		end
+	end
+end
+
+if isfolder("easydestroyer") == false then
+    makefolder("easydestroyer")
+end
+
+if isfolder("easydestroyer/sound") == false then
+    makefolder("easydestroyer/sound")
+end
+
+if isfolder("easydestroyer/assets") == false then
+    makefolder("easydestroyer/assets")
+end
+
+if isfolder("easydestroyer/config") == false then
+    makefolder("easydestroyer/config")
+end
+
+local foldername = "easydestroyer/config"
+local conf = {
+	["file"]=foldername.."/"..game.PlaceId..".json",
+	["functions"]={}
+}
+
+if game.PlaceId == 6872274481 or game.PlaceId == 8560631822 or game.PlaceId == 8444591321 then
+    conf["file"] = foldername.."/bedwars.json"
+end
+
+function conf.functions:MakeFile()
+	if isfile(conf["file"]) then return end
+	if not isfolder(foldername)  then
+		makefolder(foldername)
+	end
+	writefile(conf["file"],"{}")
+end
+
+function conf.functions:LoadConfigs()
+	if not isfile(conf["file"]) then
+		conf["functions"]:MakeFile()
+	end
+    wait(0.5)
+	return game:GetService("HttpService"):JSONDecode(readfile(conf["file"]))
+end
+
+function conf.functions:WriteConfigs(tab)
+	conf["functions"]:MakeFile()
+	writefile(conf["file"],game:GetService("HttpService"):JSONEncode((tab or {})))
+end
+local configtable = (conf["functions"]:LoadConfigs() or {})
+
+local configsaving = true
+spawn(function()
+    repeat
+        conf["functions"]:WriteConfigs(configtable)
+        task.wait(5)
+    until (not configsaving)
+end)                    
