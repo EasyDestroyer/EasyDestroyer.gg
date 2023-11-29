@@ -46,8 +46,8 @@ function countdown(time)
 	
 	local count = Count
 	
-	while wait(0.1) do
-		Count.Value -= 0.1
+	while wait(1) do
+		Count.Value -= 1
 		TextLabel.Text = Count.Value
 		if Count.Value == 0 then
 			Countdown:Destroy()
