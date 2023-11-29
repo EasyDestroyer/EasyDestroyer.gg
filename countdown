@@ -39,6 +39,7 @@ function countdown(time)
 	TextLabel.TextScaled = true
 	TextLabel.TextSize = 14.000
 	TextLabel.TextWrapped = true
+        TextLabel.Text = "[LOADING]"
 	
 	Count.Parent = TextLabel
 	Count.Value = time
