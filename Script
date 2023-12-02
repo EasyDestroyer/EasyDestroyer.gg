@@ -1,1 +1,18 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/EasyDestroyer/EasyDestroyer/main/GuiLibrary"))()
+local Window = Library.CreateLib("EasyDestroyer.gg", "DarkTheme")
 
+-- Tabs
+
+local Tab1 = Window:NewTab("Combat")
+
+-- Tab1
+
+local Combat = Tab1:NewSection("Combat")
+
+Combat:NewButton("AutoClick", "Enable autoclicker", function()
+  local mouse = game.Players.LocalPlayer:GetMouse()
+  while true do(0.1)
+  mouse:Click()
+  end
+  NotifyUser("Warning", "This function is in beta, it may not work.")
+end)
